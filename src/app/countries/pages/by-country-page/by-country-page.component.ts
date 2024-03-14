@@ -10,6 +10,7 @@ import { CountriesService } from '../../services/countries.service';
 export class ByCountryPageComponent implements OnInit {
   public countries: Country[] = [];
   public initialValue: string = '';
+  public isLoading: boolean = false;
 
   constructor(private countriesServices: CountriesService) {}
   ngOnInit(): void {
@@ -18,8 +19,10 @@ export class ByCountryPageComponent implements OnInit {
   }
 
   searchByCountry(term: string) {
+    this.isLoading = true;
     this.countriesServices.searchCountry(term).subscribe((countries) => {
       this.countries = countries;
+      this.isLoading = false;
     });
   }
 }
